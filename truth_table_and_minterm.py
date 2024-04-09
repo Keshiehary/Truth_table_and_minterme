@@ -19,7 +19,7 @@ cols = 9
 #initialisation de la matrice d'affichage
 tab = [[0 for _ in range(cols)] for _ in range(rows)]
 
-#tab=[[0,0,0,0,0,0,0,0,0],[]...]
+
 nbr_lg=rows
 nbr_col=cols
 
@@ -58,7 +58,7 @@ for ligne in range (nbr_lg):
     for colonne in range((nbr_col)):
         
      
-        #mameno le tableau @valeur a ou b ou c
+        #completion du tableau avec la valeur a ou b ou c
         #ex lgn=5 
         if colonne<puis:
             if colonne==0:
