@@ -1,4 +1,5 @@
-
+def function(f):
+   return f
 ligne=0
 colonne=0
 a,b,c=0,0,0
@@ -8,7 +9,7 @@ c_bar=0
 ab=0
 b_barc=0
 ac_bar=0
-f=0
+
 #fixer la puissance de 2 maximale
 puis=3
 
