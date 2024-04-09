@@ -1,0 +1,247 @@
+
+
+ligne=0
+
+colonne=0
+
+a,b,c=0,0,0
+
+OUTPUT("Respectivement posons b_bar  , c_bar les negations b et c")
+
+b_bar=0
+
+c_bar=0
+
+ab=0
+
+b_barc=0
+
+ac_bar=0
+
+f=0
+
+puis=3
+
+
+
+SET rows TO 2**puis
+
+SET cols TO 9
+
+
+
+SET tab TO [[0 FOR _ IN range(cols)] FOR _ IN range(rows)]
+
+
+
+SET nbr_lg TO rows
+
+SET nbr_col TO cols
+
+
+
+SET dics TO []
+
+SET step TO 0
+
+SET tic TO 0
+
+
+
+OUTPUT ("---------------------------")
+
+OUTPUT("voici la table de vérité")
+
+FOR step IN range (rows):
+
+    SET nbr TO format(step, '#05b')[2:]
+
+   
+
+    SET sub TO []
+
+    FOR tic IN range (len(nbr)):
+
+        sub.append(nbr[tic])
+
+  
+    SET dics TO dics +[sub]
+
+
+
+OUTPUT ("---------------------------")
+
+OUTPUT ("   |a||b||c|!b|!c|ab|!bc|a!c|f|")
+
+OUTPUT ("---------------------------")
+
+FOR ligne IN range (nbr_lg):
+
+    FOR colonne IN range((nbr_col)):
+
+        
+
+     
+        IF colonne<puis:
+
+            IF colonne==0:
+
+                a=int(dics[ligne][0])
+
+                tab[ligne][colonne]=a
+
+            ELSE:
+
+                IF colonne==1:
+
+                    b=int(dics[ligne][1])
+
+                    tab[ligne][colonne]=b
+
+                ELSE:
+
+                    c=int(dics[ligne][2])
+
+                    tab[ligne][colonne]=c
+
+                    
+
+        IF colonne<5:
+
+            IF b==0:
+
+                b_bar =1
+
+            ELSE:
+
+                b_bar=0
+
+                
+
+            IF c==0:
+
+              c_bar=1
+
+            ELSE:
+
+              c_bar=0
+
+        
+
+        tab[ligne][3],tab[ligne][4]= b_bar,c_bar
+
+        
+
+  #b_bar=0 c_bar=0 ab=0 b_barc=0 ac_bar=0 f=0      
+
+        ab,b_barc,ac_bar=a*b,b_bar*c,a*c_bar
+
+        tab[ligne][5],tab[ligne][6],tab[ligne][7]=ab,b_barc,ac_bar
+   
+   	f=ab+b_barc+ac_bar
+
+        IF f>0:
+
+            f=1
+	 tab[ligne][8]=f
+
+        
+
+FOR ligne IN range (nbr_lg):
+
+    OUTPUT ("["+str(ligne)+"]"+str(tab[ligne]))
+
+
+
+SET mint TO [[],[]]
+
+SET minterme TO ""
+
+
+
+
+FOR ligne IN range (nbr_lg):
+      
+
+        a=tab[ligne][0]
+
+        b=tab[ligne][1]
+
+        c=tab[ligne][2]
+
+        f=tab[ligne][8]
+
+        IF a==1:
+
+            a="a"
+
+        ELSE:
+
+            a="!a"
+
+        IF b==1:
+
+            b="b"
+
+        ELSE:
+
+            b="!b"
+
+        IF c==1:
+
+            c="c"
+
+        ELSE:
+
+            c="!c"
+
+ 
+
+        
+
+        minterme=a+" "+b+" " + c
+
+        
+
+        IF f==1:
+
+            
+
+            mint[0].append(minterme)
+
+        ELSE:
+
+            mint[1].append(minterme)
+
+            
+
+OUTPUT ("---------------------------------------------------------------")
+
+OUTPUT("Les mintermes de la 1er forme canonique:")
+
+SET step TO 0
+
+SET strv TO ""
+
+FOR step IN range (len(mint[0])):
+
+    strv=strv+" + " + mint[0][step]
+
+
+
+OUTPUT("f=" + strv[2:])
+
+
+SET strv TO ""
+
+OUTPUT("Les mintermes de la 2eme forme canonique:")
+
+
+
+FOR step IN range (len(mint[1])):
+
+    strv=strv+" + "+mint[1][step]
+
+
+
+OUTPUT("f=" + strv[2:])
