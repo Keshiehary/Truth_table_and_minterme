@@ -1,0 +1,159 @@
+Algorithme Create_table
+
+debut
+fonction NotVar(var):
+	debut
+		entier Notvar, var		
+		
+		si var==1 alors
+        		notvar=0
+    		sinon
+        		notvar=1
+    		finsi
+    		
+    		retourner notvar
+    	finfonction
+    	
+fonction SaisieMinterme(step):
+	debut
+		caractere mins, split
+		entier step
+		chaîne Sstep
+		Sstep= step+1.toString()
+		mins=input("Entrer le minterme"+ Sstep + ":")
+		chaîne []splt
+		splt=mins.split()
+		console.writeline(splt)
+		
+		retourner mins, splt
+		
+	finfonction
+
+caractere tableau_verite[], minus[], var[], var1[], var2[]
+entier minst
+minst=input("combien de mintermes comporte la fonction: ")
+afficher "le minterme AB sera saisie comme A B avec un espace  "
+afficher "le minterme abarre B sera saisie comme : nonA B 
+afficher"--------------------------------------"
+pour step de 0 à int.parse(minst) faire
+    mins,splt=SaisieMinterme(step)
+    pour elem dans enumerate(mins.split()):
+        append(var,elem[1])     
+    
+    finpour
+    append(minus,mins)
+
+finpour
+
+pour elem dans enumerate(var)
+    si elem[1].length>2 alors
+        append(var1,elem[1][3])
+        append(var2,elem[1])
+    sinon
+        append(var1.elem[1])
+    finsi
+finpour
+var1=supprimerDoublons(var1)
+var1=trier(var1)
+var2=supprimerDoublons(var2)
+var2=trier(var2)
+
+entier bits
+bits=0
+pour elem dans enumerate (var1)
+    si elem[1].length==1 alors
+       bits=bits+1
+       finsi
+finpour
+
+entier rows, cols
+rows <- 2**bits
+cols <- var.length+1
+tableau_verite <- []+[tableau[rows, cols] entier]
+        
+tableau_verite[0]=var1+var2
+
+entier s
+pour s 0 à tab[0].length faire
+	lengths=max(s.length)
+	
+finpour	
+                      
+param='#0'+bits+2.tostring+'b'
+
+entier nbr_lg, nbr_col
+nbr_lg=rows
+nbr_col=cols
+entier dics[], step, tic, f
+step,tic,f=0,0,0
+pour step de 0 à nbr_lg faire
+    nbr=FormaterNombre(step,param )[2:]
+    sub=[]
+    
+    pour tic de 0 à nbr.length:
+    	append(sub, nbr[tic])
+    	dics <- dics +[sub]
+	finpour
+finpour
+	
+var= CreerDictionnaireVide()
+
+pour ligne de 0 à nbr_lg
+    var.update({ligne:0})
+    subs=CreerDictionnaireVide()
+    pour step de 0 à bits faire
+        subs.update({var1[step]: int(dics[ligne][step])})
+    finpour
+    var.update({ligne : subs}) 
+    si var2.length>0 alors
+        pour elem dans enumerate (var2) faire
+            io=int.parse(var[ligne][elem[1][3]])
+            subs.update({elem[1]: int(NotVar(io))})
+            var.update({ligne : subs})
+        finpour
+    finsi
+        
+    fonc=0
+    #minus
+    pour elem dans enumerate(minus) faire
+        min_str=""
+        min_x=1
+        pour elt dans enumerate (elem[1].split()) faire
+           min_str=min_str+"*"+elt[1]
+           min_x=min_x*int(var[ligne][elt[1]])
+        finpour
+        subs.update({min_str[1:]: min_x})
+        append(tab[0],min_str[1:])
+        item=min_x
+        fonc=fonc+item
+        
+        si fonc>1 alors
+            fonc=1
+        finsi
+    finpour
+    var.update({ligne : subs})        
+    subs.update({'fonction': fonc})
+finpour
+tableau_verite[0]= SupprimerDoublons(tableau_verite[0])
+tableau_verite[0]=trier(tableau_verite[0])
+item_triés = Trier(items, CleTri)
+afficher '-------------------------------'
+afficher "la table de vérité"
+afficher '-------------------------------'
+tabs=tableau_verite
+
+pour steps de 0 à (1,len(tabs)) faire
+    tabs[steps]=(tableau_verite[steps]).toString.split("[")[1].split("]")[0].split(",")
+finpour
+
+format_row <- "{:>12}" * (tableau_verite[0].length + 1)
+
+step=0
+pour  row dans  tabs:
+    si step==0 alors
+        afficher format_row
+        afficher format_row.FormaterNombre(step-1, *row)
+    finsi
+    step=step+1
+    
+finpour
