@@ -66,6 +66,7 @@ nbr_col=cols
 
 dics = []
 step,tic,f=0,0,0
+canon=[]
 
 for step in range (nbr_lg):
     nbr=format(step,param )[2:]
@@ -75,6 +76,7 @@ for step in range (nbr_lg):
     dics = dics +[sub]
 
 var= {}
+mintx=[]
 for ligne in range (nbr_lg):
     var.update({ligne:0})
     subs={}
@@ -101,21 +103,35 @@ for ligne in range (nbr_lg):
            min_str=min_str+"*"+elt[1]
            min_x=min_x*int(var[ligne][elt[1]])
         subs.update({min_str[1:]: min_x})
-        tab[0].append(min_str[1:])
+        
+        #tab[0].append(min_str[1:])
         #print(min_str[1:]+":"+str( min_x))
-        
-        
+        mintx.append(min_str[1:].replace(" ", ""))
+        mintx=sorted(list(set(mintx)))
         item=min_x
         fonc=fonc+item
-        if fonc>1:
+        strs=""
+        stri=""
+        if fonc>=1:
             fonc=1
+            #print(var1)
+            for vari in var1:
+                if int(var[ligne][vari])==0:
+                    stri="not"+vari
+                else:
+                    stri=vari
+                    
+                strs=strs+"*"+stri
+                 
+            canon.append(strs[1:])
+            
             
     
     var.update({ligne : subs})        
     subs.update({'fonction': fonc})
        
     
-tab[0]= sorted(list(set(tab[0])), key=lambda item: (len(item), item))
+tab[0]=var1+var2+mintx
     
 tab[0].append('fonction')
     
@@ -151,3 +167,15 @@ for  row in  tabs:
          print(format_row.format(step-1, *row))
     step=step+1
 
+
+canon=list(set(canon))
+
+strs=""
+for can in canon:
+    strs=strs+" + "+can
+
+print('-------------------------------')
+print("la forme canonique")
+print('-------------------------------')
+
+print('f= '+ strs[3:])
