@@ -84,8 +84,12 @@ param='#0'+bits+2.tostring+'b'
 entier nbr_lg, nbr_col
 nbr_lg=rows
 nbr_col=cols
-entier dics[], step, tic, f
+
+entier  step, tic, f
+sub=[]
 step,tic,f=0,0,0
+canon=[]
+
 pour step de 0 à nbr_lg faire
     nbr=FormaterNombre(step,param )[2:]
     sub=[]
@@ -97,6 +101,7 @@ pour step de 0 à nbr_lg faire
 finpour
 	
 var= CreerDictionnaireVide()
+mintx=[]
 
 pour ligne de 0 à nbr_lg
     var.update({ligne:0})
@@ -129,6 +134,18 @@ pour ligne de 0 à nbr_lg
         
         si fonc>1 alors
             fonc=1
+	    pour vari dans var1 faire
+                si int(var[ligne][vari])==0 alors
+                    stri="not"+vari
+                sinon
+                    stri=vari
+                finpour
+
+                strs=strs+"*"+stri
+                
+            canon.append(strs[1:])
+	
+
         finsi
     finpour
     var.update({ligne : subs})        
@@ -157,3 +174,16 @@ pour  row dans  tabs:
     step=step+1
     
 finpour
+
+
+canon=SupprimerDoublons(canon)
+
+strs=""
+pour can dans canon faire
+    strs=strs+" + "+can
+
+afficher '-------------------------------'
+afficher "la forme canonique"
+afficher '-------------------------------'
+
+afficher 'f= '+ strs[3:]
